@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ iron.name }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ iron.image.url }}" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Характеристика</th>
+                    <th scope="col">Описание</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Название утюга</td>
+                    <td>{{ iron.name }}</td>
+                </tr>
+                <tr>
+                    <td>Вид утюга</td>
+                    <td>{{ iron.type }}</td>
+                </tr>
+                <tr>
+                    <td>Материал подошвы</td>
+                    <td>{{ iron.sole }}</td>
+                </tr>
+                <tr>
+                    <td>Обьем резервуара для воды</td>
+                    <td>{{ iron.volume }} мг.</td>
+                </tr>
+                <tr>
+                    <td>Мощность</td>
+                    <td>{{ iron.power }} Вт.</td>
+                </tr>
+                <tr>
+                    <td>В комплекте</td>
+                    <td>{{ iron.more }}</td>
+                </tr>
+                <tr>
+                    <td>В наличии</td>
+                    <td>{{ bicycle.stock }} шт.</td>
+                </tr>
+                <tr>
+                    <td>Цена</td>
+                    <td>{{ iron.price }} руб.</td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" href="#" class="btn btn-primary">Добавить в корзину</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
