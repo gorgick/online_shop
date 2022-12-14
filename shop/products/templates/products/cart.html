@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="text-center mt-5 mb-5">Ваша корзина {% if not cart.irons.count and not cart.bicycles.count %}пуста{% endif %}</h3>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+
+            </button>
+            <span aria-hidden="true">&times;</span>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if cart.irons.count or cart.bicycles.count %}
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">Наименование</th>
+        <th scope="col">Изображение</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Общая цена</th>
+        <th scope="col">Действие</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in cart.irons.all %}
+    <tr>
+        <th scope="row">{{ item.name }}</th>
+        <td class="w-25"><img src="{{ item.image.url }}" class="img-fluid img-thumbnail"></td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.final_price }} руб.</td>
+        <td>
+            <a href="{% url 'delete_from_cart' ct_model=item.ct_model slug=item.slug %}"><button class="btn btn-danger">Удалить из корзины</button> </a>
+        </td>
+    </tr>
+  {% endfor %}
+  {% for item in cart.bicycles.all %}
+    <tr>
+        <th scope="row">{{ item.name }}</th>
+        <td class="w-25"><img src="{{ item.image.url }}" class="img-fluid img-thumbnail"></td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.final_price }} руб.</td>
+        <td>
+            <a href="{% url 'delete_from_cart' ct_model=item.ct_model slug=item.slug %}"><button class="btn btn-danger">Удалить из корзины</button> </a>
+        </td>
+    </tr>
+  {% endfor %}
+        <tr>
+            <td colspan="1"></td>
+            <td>Итого</td>
+            <td>{{ cart.total_products }}</td>
+            <td><strong>{{ cart.total_price }} руб.</strong></td>
+            <td><a href=""><button class="btn btn-primary">Перейти к оформлению</button></a></td>
+        </tr>
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}
