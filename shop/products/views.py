@@ -8,11 +8,10 @@ from .mixins import CartMixin
 from .models import *
 
 
-class BaseView(View):
+class BaseView(CartMixin, View):
     def get(self, request, *args, **kwargs):
-        irons = Iron.objects.all()
         products = get_products_for_main_page('iron', 'bicycle')
-        return render(request, 'products/main_page.html', {'irons': irons, 'products': products})
+        return render(request, 'products/main_page.html', {'cart': self.cart, 'products': products})
 
 
 class IronDetailView(DetailView):
@@ -59,7 +58,3 @@ class DeleteFromCartView(CartMixin, View):
             self.cart.bicycles.remove(bicycle)
         recalc_cart(self.cart)
         return HttpResponseRedirect('/')
-
-
-
-

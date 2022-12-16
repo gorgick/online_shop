@@ -1,7 +1,8 @@
 from django.views.generic.detail import SingleObjectMixin
 
 from customers.models import Customer
-from products.models import Cart
+from products.models import Cart, Iron, Bicycle
+from products.utils import recalc_cart
 
 
 class CartMixin(SingleObjectMixin):
@@ -13,4 +14,5 @@ class CartMixin(SingleObjectMixin):
             cart = Cart.objects.create(owner=customer)
         self.cart = cart
         return super(CartMixin, self).dispatch(request, *args, **kwargs)
+
 
